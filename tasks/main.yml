@@ -10,7 +10,7 @@
     when: ansible_distribution == "Debian"
 
   - name: Check OS - Ubuntu 16.XX
-    include: ubuntu16.yml
+    include: ubuntu.yml
     when: 
      - ansible_distribution == "Ubuntu"
      - ansible_distribution_major_version == "16"
