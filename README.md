@@ -3,7 +3,6 @@ Pritunl VPN Role
 
 This role allows for easy installation of the VPN Server [Pritunl](https://pritunl.com).
 
-
 The installation is possible on :
 
 * Ubuntu (Precise (14.04) and Trusty (12.04))
@@ -12,7 +11,7 @@ The installation is possible on :
 * Fedora (22)
 * RHEL (7)
 * Amazon Linux (2013.03) (SOON)
-
+* Add Ubuntu Xenial (16.04) support
 
 Requirements
 ------------
@@ -23,19 +22,21 @@ Dependencies
 ------------
 
 There aren't any dependencies to this role.
+
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
 ```
-- hosts: servers
-  roles:
-  - { role: thehunt33r.pritunl}
+---
+    tasks:
+    - name: "Run: {{ task }}"
+      include: "{{ task }}"
+...
 ```
+
 License
 -------
-
 BSD
-
 Feel free to contribute, open issues, etc... Indeed I do not consider this role final yet. It lacks configurability.

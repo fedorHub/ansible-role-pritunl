@@ -1,0 +1,34 @@
+---
+# tasks file for pritunl
+    - name: Include correct vars for {{ ansible_distribution }}
+      include_vars: "{{ item }}"
+      with_first_found:
+        - "{{ ansible_distribution }}.yml"
+        - "main.yml"
+      when: 
+       - ansible_distribution == "Ubuntu"
+       - ansible_distribution_major_version == "16"
+
+    - name: Add pritunl repo
+      template: src=pritunlubuntu.list.j2 dest=/etc/apt/sources.list.d/pritunl.list
+
+    - name: Add MongoDB repo
+      template: src=mongodb-org-4.0.list.j2 dest=/etc/apt/sources.list.d/mongodb-org-4.0.list
+
+    - name: Install keys
+      apt_key: keyserver=keyserver.ubuntu.com id={{ item }}
+      with_items:
+      - 9DA31620334BD75D9DCB49F368818C72E52529D4
+      - 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+
+    - name: Install Pritunl and dependencies
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+      - mongodb-org
+      - pritunl
+
+    - name: Start pritunl
+      service: name={{item}} state=started enabled=yes
+      with_items:
+      - pritunl
+      - mongod
